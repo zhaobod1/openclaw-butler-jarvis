@@ -1,6 +1,6 @@
 ---
-name: nvm-windows noinstall 首次使用需手动创建 settings.txt
-description: nvm-windows noinstall 版本不会自动创建 settings.txt，导致 nvm install lts 失败报 "The system cannot find the file specified"
+name: nvm-windows noinstall 首次使用需手动创建 settings.txt + 杀毒软件阻拦
+description: nvm-windows noinstall 版本不会自动创建 settings.txt，导致 nvm install lts 失败；杀毒软件可能阻拦 Node.js/pnpm 安装导致脚本闪退
 type: feedback
 ---
 
@@ -11,14 +11,22 @@ ERROR open C:\Users\Administrator\AppData\Local\Temp\nvm\settings.txt: The syste
 [ERROR] Node.js install failed
 ```
 
+或脚本在 "check pnpm" 步骤闪退（无错误输出）。
+
 ## 根因
 
-nvm-windows noinstall 版本（`nvm-noinstall.zip`）解压后不会自动生成 `settings.txt`。`nvm install lts` 首次运行时需要读取该文件获取 root/path/arch/proxy 配置，找不到就报错。
+1. nvm-windows noinstall 版本（`nvm-noinstall.zip`）解压后不会自动生成 `settings.txt`。`nvm install lts` 首次运行时需要读取该文件获取 root/path/arch/proxy 配置，找不到就报错。
+2. 杀毒软件（Windows Defender / 360 等）可能将 nvm.exe / node.exe / corepack.exe 误报为威胁并静默拦截，导致脚本闪退。
 
 ## 修法模板（可复制）
 
 ```batch
-REM 在 nvm install lts 之前插入
+REM 1. 在脚本开头添加杀毒软件警告
+echo [!] IMPORTANT: Please disable antivirus software before running this script.
+echo     Press any key to continue, or Ctrl+C to exit...
+pause >nul
+
+REM 2. 在 nvm install lts 之前插入 settings.txt 创建
 (
     echo root: %NVM_DIR%
     echo path: C:\Program Files\nodejs
@@ -32,10 +40,11 @@ REM 在 nvm install lts 之前插入
 1. 检查 `%TEMP%\nvm\` 目录是否存在
 2. 确认 `settings.txt` 是否缺失
 3. 若缺失，手动创建并写入四行配置
-4. 重新运行 `nvm install lts`
+4. 关闭杀毒软件实时防护
+5. 重新运行 `build-on-windows.bat`
 
 ## 关联
 
 - 项目: `openclaw-butler-jarvis`
-- 文件: `deploy/clawbutler-usb/build-on-windows.bat:40-45`
+- 文件: `deploy/clawbutler-usb/build-on-windows.bat:1-22`
 - 文档: `docs/developer-sop.md` §5.2

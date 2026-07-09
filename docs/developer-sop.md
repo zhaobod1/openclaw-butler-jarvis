@@ -198,25 +198,27 @@ git push origin main
 
 ### 5.2 nvm-windows 安装 Node.js 失败
 
-**症状**: `ERROR open C:\...\nvm\settings.txt: The system cannot find the file specified`
+**症状**: `ERROR open C:\...\nvm\settings.txt: The system cannot find the file specified` 或脚本闪退
 
-**根因**: nvm-windows noinstall 版本不会自动创建 `settings.txt`，首次运行前需手动创建。
+**根因**: 
+1. nvm-windows noinstall 版本不会自动创建 `settings.txt`，首次运行前需手动创建。
+2. 杀毒软件（Windows Defender / 360 等）可能阻拦 Node.js/pnpm 安装。
 
-**修法**: `build-on-windows.bat` 已内置修复——在 `nvm install lts` 前自动写入：
-
-```batch
-(
-    echo root: %NVM_DIR%
-    echo path: C:\Program Files\nodejs
-    echo arch: 64
-    echo proxy: none
-) > "%NVM_DIR%\settings.txt"
-```
+**修法**: `build-on-windows.bat` 已内置修复：
+- 开头添加杀毒软件警告提示
+- 在 `nvm install lts` 前自动写入 `settings.txt`
 
 **手动修复**（如脚本外使用 nvm）：
-1. 打开 `%TEMP%\nvm\` 目录
-2. 新建 `settings.txt`，写入上述四行
-3. 重新运行 `nvm install lts`
+1. 关闭杀毒软件实时防护
+2. 打开 `%TEMP%\nvm\` 目录
+3. 新建 `settings.txt`，写入：
+   ```
+   root: %TEMP%\nvm
+   path: C:\Program Files\nodejs
+   arch: 64
+   proxy: none
+   ```
+4. 重新运行 `nvm install lts`
 
 ### 5.2 数据库/存储
 
