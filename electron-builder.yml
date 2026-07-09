@@ -137,7 +137,7 @@ nsis:
   createStartMenuShortcut: true
   shortcutName: 龙虾管家
   uninstallDisplayName: 龙虾管家
-  license: LICENSE
+  license: LICENSE_INSTALLER.txt
   include: scripts/installer.nsh
   installerIcon: resources/icons/icon.ico
   uninstallerIcon: resources/icons/icon.ico
