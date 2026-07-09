@@ -169,11 +169,28 @@ git add -A
 git commit -m "chore: bump to vX.Y.Z"
 git push origin main
 
-# 5. USB 同步
-# 将 release/ 复制到 CLAWBUTLER U 盘
+# 5. USB 做盘（见 §4.3）
 ```
 
-### 4.3 提交流程
+### 4.3 USB 做盘
+
+将项目部署到 exFAT U 盘，供非技术用户一键构建。详见 `docs/lessons/2026-07-09-usb-build-disk-sop.md`。
+
+**关键步骤**：
+
+| 步骤 | 说明 |
+|------|------|
+| 1. 同步源码 | `robocopy` 镜像同步到 `E:\source`，排除 `node_modules/.git/dist/release` |
+| 2. 部署脚本 | `build-on-windows.bat` / `deploy-juxingyi.bat` / `juxingyi-openclaw.json` / `README.md` → `E:\` 根 |
+| 3. 清理垃圾 | 删除 macOS `._*` 文件和 `.Spotlight-V100` / `.fseventsd` 目录 |
+| 4. 验证 | 确认 `.npmrc` 含 `node-linker=hoisted`、无 `._*` 文件、关键文件齐全 |
+
+**注意事项**：
+- U 盘必须为 exFAT 格式，`.npmrc` 必须含 `node-linker=hoisted`（否则 pnpm 符号链接失败）
+- 若 U 盘在 Mac 上用过，做盘前**必须**清理 `._*` 垃圾文件
+- `System Volume Information` 是 Windows 系统目录，不可删除
+
+### 4.4 提交流程
 
 ```
 分支策略：main 单主干（本 fork 不复杂分支）
@@ -220,13 +237,34 @@ git push origin main
    ```
 4. 重新运行 `nvm install lts`
 
-### 5.2 数据库/存储
+详见 `docs/lessons/2026-07-09-nvm-windows-settings-txt.md`。
+
+### 5.3 U 盘（exFAT）构建闪退
+
+**症状**: 双击 `build-on-windows.bat` 窗口一闪而过；手动运行报 `ERR_PNPM_NO_PKG_MANIFEST` 或 `ERR_PNPM_EISDIR`
+
+**根因**:
+1. 脚本未切换到项目根目录，`pnpm install` 找不到 `package.json`（U 盘布局是 `E:\build-on-windows.bat` + `E:\source\package.json`）。
+2. exFAT 文件系统不支持符号链接，pnpm 默认的 `isolated` node-linker 在 `.pnpm/` 下创建 symlink 时失败。
+
+**修法**: `build-on-windows.bat` 已内置修复：
+- 脚本开头用 `%~dp0` 自动定位项目根（兼容 USB 部署和开发仓库两种布局）
+- `.npmrc` 添加 `node-linker=hoisted`，改用扁平化 node_modules 避免 symlink
+
+**手动诊断**:
+1. `"" | cmd /c "E:\build-on-windows.bat"` 查看完整错误
+2. 确认 `.npmrc` 含 `node-linker=hoisted`
+3. `pnpm install --frozen-lockfile` 验证不再报错
+
+详见 `docs/lessons/2026-07-09-exfat-pnpm-node-linker.md`。
+
+### 5.4 数据库/存储
 
 无传统数据库。配置存储：
 - `electron-store` JSON 文件（`~/.openclaw/`）
 - 系统钥匙串（macOS Keychain / Windows Credential Manager）
 
-### 5.3 日志
+### 5.5 日志
 
 | 位置 | 内容 |
 |------|------|

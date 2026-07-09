@@ -2,6 +2,19 @@
 title Claw Butler - Windows Build
 setlocal enabledelayedexpansion
 
+REM ==================== Change to project root ====================
+cd /d "%~dp0"
+if exist "source\package.json" (
+    cd source
+) else if exist "..\..\package.json" (
+    cd ..\..\
+)
+echo    Project root: %CD%
+echo.
+
+REM Set node-linker=hoisted for exFAT USB drives (pnpm symlinks not supported)
+set "PNPM_CONFIG_NODE_LINKER=hoisted"
+
 echo ========================================
 echo    Claw Butler - Windows Build
 echo    Huo15 Tech
@@ -118,6 +131,10 @@ set "ELECTRON_MIRROR=https://npmmirror.com/mirrors/electron/"
 set "ELECTRON_BUILDER_BINARIES_MIRROR=https://npmmirror.com/mirrors/electron-builder-binaries/"
 echo    npm:  https://registry.npmmirror.com
 echo    electron: %ELECTRON_MIRROR%
+
+REM Set node-linker=hoisted for exFAT USB drives (pnpm symlinks not supported)
+echo    Setting node-linker=hoisted for exFAT compatibility...
+pnpm config set node-linker hoisted --location=project
 echo.
 
 REM ==================== 4. Install + Build ====================
