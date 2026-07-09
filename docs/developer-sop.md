@@ -196,6 +196,28 @@ git push origin main
 | uv 未安装 | `pnpm run uv:download` 未跑 | 运行 `pnpm run init` |
 | 配置损坏 | openclaw.json 格式错误 | 备份后运行 Doctor |
 
+### 5.2 nvm-windows 安装 Node.js 失败
+
+**症状**: `ERROR open C:\...\nvm\settings.txt: The system cannot find the file specified`
+
+**根因**: nvm-windows noinstall 版本不会自动创建 `settings.txt`，首次运行前需手动创建。
+
+**修法**: `build-on-windows.bat` 已内置修复——在 `nvm install lts` 前自动写入：
+
+```batch
+(
+    echo root: %NVM_DIR%
+    echo path: C:\Program Files\nodejs
+    echo arch: 64
+    echo proxy: none
+) > "%NVM_DIR%\settings.txt"
+```
+
+**手动修复**（如脚本外使用 nvm）：
+1. 打开 `%TEMP%\nvm\` 目录
+2. 新建 `settings.txt`，写入上述四行
+3. 重新运行 `nvm install lts`
+
 ### 5.2 数据库/存储
 
 无传统数据库。配置存储：
