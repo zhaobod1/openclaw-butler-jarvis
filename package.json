@@ -1,5 +1,5 @@
 {
-    "name": "clawx",
+    "name": "clawbutler",
     "version": "0.4.15",
     "pnpm": {
         "onlyBuiltDependencies": [
@@ -25,9 +25,9 @@
             ]
         }
     },
-    "description": "ClawX - Graphical AI Assistant based on OpenClaw",
+    "description": "龙虾管家 - 基于 OpenClaw 的图形化 AI 助手",
     "main": "dist-electron/main/index.js",
-    "author": "ClawX Team",
+    "author": "青岛火一五信息科技有限公司",
     "license": "MIT",
     "private": true,
     "scripts": {

@@ -1,8 +1,8 @@
-appId: app.clawx.desktop
-productName: ClawX
-copyright: Copyright © 2026 ClawX
+appId: com.huo15.clawbutler
+productName: 龙虾管家
+copyright: Copyright © 2026 青岛火一五信息科技有限公司
 compression: maximum
-artifactName: ${productName}-${version}-${os}-${arch}.${ext}
+artifactName: 龙虾管家-${version}-${os}-${arch}.${ext}
 
 directories:
   output: release
@@ -122,7 +122,9 @@ win:
   icon: resources/icons/icon.ico
   target:
     - target: nsis
-      arch: x64
+      arch:
+        - x64
+        - ia32
 
 nsis:
   oneClick: false
@@ -133,8 +135,8 @@ nsis:
   differentialPackage: true
   createDesktopShortcut: true
   createStartMenuShortcut: true
-  shortcutName: ClawX
-  uninstallDisplayName: ClawX
+  shortcutName: 龙虾管家
+  uninstallDisplayName: 龙虾管家
   license: LICENSE
   include: scripts/installer.nsh
   installerIcon: resources/icons/icon.ico

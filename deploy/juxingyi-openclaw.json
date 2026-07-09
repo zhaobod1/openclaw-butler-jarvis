@@ -1,0 +1,24 @@
+{
+  "providers": [
+    {
+      "id": "juxingyi",
+      "name": "聚星逸",
+      "type": "openai",
+      "baseUrl": "https://fireworks-simulator-api.huo15.com/v1",
+      "apiKey": "fsk-3Ycmtx_ZXCLSuKFHB-KePCChLPLRvBll",
+      "models": [
+        "deepseek-v4-flash-free"
+      ],
+      "defaultModel": "deepseek-v4-flash-free"
+    }
+  ],
+  "agents": {
+    "defaults": {
+      "model": "juxingyi/deepseek-v4-flash-free",
+      "tools": {
+        "allow": ["*"],
+        "deny": []
+      }
+    }
+  }
+}
