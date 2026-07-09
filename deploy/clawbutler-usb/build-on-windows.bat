@@ -67,6 +67,7 @@ echo    Installing Node.js LTS...
 "%NVM_DIR%\nvm.exe" install lts
 if %errorlevel% neq 0 (
     echo    [ERROR] Node.js install failed
+    echo    Please disable antivirus and try again
     pause
     exit /b 1
 )
