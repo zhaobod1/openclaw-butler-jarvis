@@ -6,6 +6,7 @@ import { Menu, app, shell, BrowserWindow } from 'electron';
 import { MENU_LABELS } from '@shared/i18n/resources';
 import { resolveSupportedLanguage, type LanguageCode } from '@shared/language';
 import { getSetting } from '../utils/store';
+import { showCustomerService } from '../utils/customer-service';
 
 function applyAppName(label: string): string {
   return label.replaceAll('{{appName}}', app.name);
@@ -202,6 +203,12 @@ export async function createMenu(language?: string): Promise<void> {
           label: labels.help.documentation,
           click: async () => {
             await shell.openExternal('https://claw-x.com');
+          },
+        },
+        {
+          label: labels.help.customerService,
+          click: () => {
+            showCustomerService();
           },
         },
         {

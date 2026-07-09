@@ -26,6 +26,7 @@ import {
   ensureClawXDefaultIdentity,
   repairClawXOnlyBootstrapFiles,
 } from '../utils/openclaw-workspace';
+import { ensureJuxingyiProvider } from '../utils/juxingyi-provider';
 import { autoInstallCliIfNeeded, generateCompletionCache, installCompletionToProfile } from '../utils/openclaw-cli';
 import { isQuitting, setQuitting } from './app-state';
 import { getMacTrafficLightPosition, syncMacTrafficLightPosition } from './traffic-light-layout';
@@ -390,6 +391,13 @@ async function initialize(): Promise<void> {
   if (!isE2EMode) {
     void ensureClawXDefaultIdentity().catch((error) => {
       logger.warn('Failed to seed default ClawX identity:', error);
+    });
+  }
+
+  // Seed the 聚星逸 provider (juxingyi) if no providers are configured.
+  if (!isE2EMode) {
+    void ensureJuxingyiProvider().catch((error) => {
+      logger.warn('Failed to seed juxingyi provider:', error);
     });
   }
 

@@ -53,6 +53,7 @@
   "help": {
     "label": "Справка",
     "documentation": "Документация",
+    "customerService": "Поддержка",
     "reportIssue": "Сообщить о проблеме",
     "openClawDocumentation": "Документация OpenClaw"
   }

@@ -257,6 +257,15 @@ git merge upstream/main
 | `electron/gateway/ws-client.ts` | ✅ 修改 | displayName |
 | `electron/gateway/process-launcher.ts` | ✅ 修改 | OpenRouter-Title |
 | `electron/shared/providers/registry.ts` | ✅ 修改 | OpenRouter-Title |
+| `electron/main/menu.ts` | ✅ 修改 | 增加客服菜单项 |
+| `electron/main/index.ts` | ✅ 修改 | 启动时 seed 聚星逸 provider |
+| `shared/i18n/locales/en/*.json` | ✅ 修改 | ClawX→Claw Butler |
+| `shared/i18n/locales/ja/*.json` | ✅ 修改 | ClawX→Claw Butler |
+| `shared/i18n/locales/ru/*.json` | ✅ 修改 | ClawX→Claw Butler |
+| `shared/i18n/locales/{zh,en,ja,ru}/menu.json` | ✅ 修改 | 增加 customerService 键 |
+| `electron/utils/juxingyi-provider.ts` | ➕ 新增 | 聚星逸 provider 首次启动自动 seed |
+| `electron/utils/customer-service.ts` | ➕ 新增 | 客服菜单 → 逸寻智库二维码弹窗 |
+| `resources/images/qrcode_yxzk.jpg` | ➕ 新增 | 逸寻智库公众号二维码 |
 | `deploy/*` | ➕ 新增 | 聚星逸配置、部署脚本、USB 包 |
 | `docs/*` | ➕ 新增 | PRD、用户手册、开发者 SOP、ADR |
 | `.claude/settings.json` | ➕ 新增 | Claude 项目配置 |

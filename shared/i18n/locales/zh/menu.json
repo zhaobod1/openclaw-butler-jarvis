@@ -53,6 +53,7 @@
   "help": {
     "label": "帮助",
     "documentation": "文档",
+    "customerService": "客服",
     "reportIssue": "报告问题",
     "openClawDocumentation": "OpenClaw 文档"
   }

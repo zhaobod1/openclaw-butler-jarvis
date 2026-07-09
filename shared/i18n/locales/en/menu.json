@@ -53,6 +53,7 @@
   "help": {
     "label": "Help",
     "documentation": "Documentation",
+    "customerService": "Customer Service",
     "reportIssue": "Report Issue",
     "openClawDocumentation": "OpenClaw Documentation"
   }

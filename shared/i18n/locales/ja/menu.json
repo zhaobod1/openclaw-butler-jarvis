@@ -53,6 +53,7 @@
   "help": {
     "label": "ヘルプ",
     "documentation": "ドキュメント",
+    "customerService": "カスタマーサービス",
     "reportIssue": "問題を報告",
     "openClawDocumentation": "OpenClaw ドキュメント"
   }

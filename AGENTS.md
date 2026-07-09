@@ -20,11 +20,14 @@
 
 ## 品牌定制（本 fork 特有）
 
-- **productName**: 龙虾管家（`electron-builder.yml`）
+- **中文名**: 龙虾管家（productName）
+- **英文名**: Claw Butler（en/ja/ru locale）
 - **appId**: `com.huo15.clawbutler`
 - **图标**: claw-butler 龙虾 logo（`resources/icons/`）
-- **中文 i18n**: 所有 zh locale 中 ClawX→龙虾管家
-- **默认 AI Provider**: 聚星逸（聚星逸聚合平台，OpenAI 兼容，`docs/developer-sop.md`）
+- **中文 i18n**: zh locale（龙虾管家）
+- **英文 i18n**: en/ja/ru locale（Claw Butler → 已全量替换）
+- **默认 AI Provider**: 聚星逸（首次启动自动 seed，代码在 `electron/utils/juxingyi-provider.ts`）
+- **客服菜单**: 帮助 → 客服 → 逸寻智库二维码弹窗（`electron/utils/customer-service.ts`）
 
 ## 仓库
 
